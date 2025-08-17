@@ -26,12 +26,12 @@ export function PromptCard({
     <button
       onClick={handleCopy}
       className={
-        "text-left w-full rounded-2xl border p-4 transition " +
+        "text-left w-full rounded-2xl border p-4 transition hover:bg-slate-50 dark:hover:bg-slate-800 " +
         (copied ? "border-amber-500 ring-2 ring-amber-400/60 " : "border-slate-200 dark:border-slate-800 ") +
         "bg-white dark:bg-slate-900 hover:shadow-soft active:scale-[0.99]"
       }
     >
-      <div className="flex items-start justify-between gap-2 hover:bg-slate-50 dark:hover:bg-slate-800">
+      <div className="flex items-start justify-between gap-2">
         <div className="text-sm text-slate-600 dark:text-slate-300 whitespace-pre-wrap">{text}</div>
         <div className="flex items-center gap-2">
           {copied && (
