@@ -31,7 +31,7 @@ function computeId(tab: string, section: string, category: string, text: string)
 const SMALL = new Set(['and','or','the','a','an','for','to','of','in','on','at','by','from','with','as','vs','via'])
 const ACR = new Set(['API','APIS','SEO','SEM','FAQ','FAQS','UX','UI','PPC','CRM','OKR','OKRS','KPI','KPIS','HR','CTA','CTAS','B2B','B2C','SAAS','SQL','NOSQL','JSON','CSV','IOS','AI'])
 function smartTitle(s: string) {
-  return s.replace(/\b[\w’']+\b/g, (w, idx) => {
+  return s.replace(/\b[\w'']+\b/g, (w, idx) => {
     const upper = w.toUpperCase()
     if (ACR.has(upper)) return upper
     const lower = w.toLowerCase()
@@ -153,7 +153,7 @@ export default function App() {
       if (!activeTab) setActiveTab(json?.[0]?.tab ?? '')
     }
     load()
-  }, [data, setData])
+  }, [data, setData, activeTab])
 
   useEffect(() => {
     if (!activeTab && data?.[0]?.tab) setActiveTab(data[0].tab)
@@ -354,9 +354,7 @@ const handleCopy = (text: string) => {
       >
         ×
       </button>
-      <div onClick={() => handleCopy(p.text)} className="rounded-2xl border p-4 transition border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 hover:shadow-soft active:scale-[0.99] cursor-pointer {copied ? 'ring-2 ring-amber-500' : ''}">
       <div onClick={() => handleCustomCopy(p.text, p.id)} className={"rounded-2xl border p-4 transition border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 hover:shadow-soft active:scale-[0.99] cursor-pointer " + (copiedCustomId === p.id ? 'ring-2 ring-amber-500' : '')}>
-
         <div className="text-xs text-slate-600 dark:text-slate-400 mb-2">{p.tab} / {p.section} / {p.category}</div>
         <div className="text-sm text-slate-800 dark:text-slate-100 whitespace-pre-wrap">{p.text}</div>
         {copiedCustomId === p.id && (
