@@ -130,6 +130,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<string>('')
   const [q, setQ] = useState('')
   const [copied, setCopied] = useState(false)
+  const [copiedCustomId, setCopiedCustomId] = useState<string>('')
   const [openNew, setOpenNew] = useState(false)
 
   // keep Tailwind dark mode in sync with state
@@ -224,6 +225,12 @@ const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text)
     setCopied(true)
     setTimeout(() => setCopied(false), 900)
+  }
+
+  const handleCustomCopy = (text: string, id: string) => {
+    navigator.clipboard.writeText(text)
+    setCopiedCustomId(id)
+    setTimeout(() => setCopiedCustomId(''), 900)
   }
 
   return (
@@ -348,9 +355,13 @@ const handleCopy = (text: string) => {
         ×
       </button>
       <div onClick={() => handleCopy(p.text)} className="rounded-2xl border p-4 transition border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 hover:shadow-soft active:scale-[0.99] cursor-pointer {copied ? 'ring-2 ring-amber-500' : ''}">
+      <div onClick={() => handleCustomCopy(p.text, p.id)} className={"rounded-2xl border p-4 transition border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 hover:shadow-soft active:scale-[0.99] cursor-pointer " + (copiedCustomId === p.id ? 'ring-2 ring-amber-500' : '')}>
 
         <div className="text-xs text-slate-600 dark:text-slate-400 mb-2">{p.tab} / {p.section} / {p.category}</div>
         <div className="text-sm text-slate-800 dark:text-slate-100 whitespace-pre-wrap">{p.text}</div>
+        {copiedCustomId === p.id && (
+          <div className="mt-2 text-xs px-2 py-0.5 rounded-full bg-accent text-white inline-block">Kopieret!</div>
+        )}
       </div>
     </div>
   ))}
